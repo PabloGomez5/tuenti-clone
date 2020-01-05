@@ -19,7 +19,7 @@ public class TestSendDm {
 
 		String user = "pablogp5";
 		String userGroupId = "1";
-		String message = "hi im just testing the testSendDm";
+		String message = "testSendDm";
 		
 		String success ="false";
 		

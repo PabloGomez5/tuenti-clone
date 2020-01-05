@@ -680,9 +680,9 @@ public class DataAccess {
 			con = this.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO `DM_messages` (`User_Group_id`, `message`, `User_Name`) VALUES (";
-			query += user_group_id + "\", \"" + message + "\", \"" + user_name+"\")";
+			query += user_group_id + ", \"" + message + "\", \"" + user_name+"\")";
+
 			int rows = stmt.executeUpdate(query);
-			System.out.println(rows);
 			result = "success";
 		}
 		catch(Exception e) {

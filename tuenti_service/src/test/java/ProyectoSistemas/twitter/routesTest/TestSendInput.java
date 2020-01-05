@@ -19,7 +19,7 @@ public class TestSendInput {
 	public void test() throws IOException {
 
 		String user = "pablogp5";
-		String message = "hola";
+		String message = "hola,mundo";
 		String success ="false";
 		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
