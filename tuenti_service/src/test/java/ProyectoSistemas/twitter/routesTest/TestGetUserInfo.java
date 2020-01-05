@@ -18,7 +18,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class TestGetUserInfoRoute {
+public class TestGetUserInfo {
 
 	
 	@SuppressWarnings("unchecked")

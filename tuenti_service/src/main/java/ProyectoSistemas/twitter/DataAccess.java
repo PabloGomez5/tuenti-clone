@@ -565,11 +565,9 @@ public class DataAccess {
 			if (rs.next()) {
 				user_group_id = rs.getInt(1);
 			}
-			
-			System.out.println(user_group_id);
 
 			if (user_group_id == -1) {
-				user_group_id = createNewGroup(userName1, userName2);
+				user_group_id = Integer.parseInt(createNewGroup(userName1, userName2));
 			}
 		}
 		catch(Exception e) {
@@ -584,17 +582,37 @@ public class DataAccess {
 
 	}
 
-	public int createNewGroup(String userName1, String userName2) {
+	
+	// to test -->
+	
+	// works but ask wa whats happening with the 1...
+	/**14b createNewGroup
+	 * 
+	 * if it doesnt exits it creates a new one and is called in the 14
+	 * 
+	 * @param userName1
+	 * @param userName2
+	 * @return String user group id
+	 */
+	private String createNewGroup(String userName1, String userName2) {
 		Connection con = null;
 		int user_group_id = -1;
-
+		
 		try {
 			con = this.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "insert DM_user_group(UserName1, UserName2) VALUES (\"";
 			query += userName1 + "\", \"" + userName2 + "\")";
 			
-			user_group_id = stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			int rows_affected = stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			
+			if (rows_affected == 1) {
+				ResultSet rs = stmt.getGeneratedKeys();
+				
+				if (rs.next()) {
+					user_group_id = rs.getInt(1);
+				}
+			}
 		} 
 		catch(Exception e) {
 			System.out.println("error located in createNewGroup");
@@ -603,14 +621,24 @@ public class DataAccess {
 		finally {
 			this.closeConnection(con);
 		}
-
-		return user_group_id;
+		
+		System.out.println("Created user_group with id " + user_group_id);
+		return String.valueOf(user_group_id) ;
 	}
 	
+	
+	//test  working
+	/**15 dmRefresh
+	 * 
+	 * It return us the list with the messages from a dm chat between the 2 userNames.
+	 * 
+	 * @param user_group_id
+	 * @return list<string> messages
+	 */
 	public List<String> dmRefresh(String user_group_id){
 		Connection con = null;
 		List<String> msgList = new ArrayList<String>();
-
+		
 		try{
 			con = this.getConnection();
 
@@ -618,8 +646,10 @@ public class DataAccess {
 			String query = ("SELECT `User_Name`, `message` FROM `DM_messages` where User_Group_id = " + user_group_id);
 			query += " order by ID_message ASC";
 			ResultSet rs = stmt.executeQuery(query);
-
+			
 			while(rs.next()) {
+				
+				System.out.println(rs.getString(1)+ " : "+ rs.getString(2));
 				msgList.add(rs.getString(1)+ " : "+ rs.getString(2));
 			}
 		}
@@ -633,6 +663,15 @@ public class DataAccess {
 		return msgList;
 	}
 	
+	
+	//test in process not working
+	/**16 sendDM
+	 * 
+	 * @param user_name
+	 * @param user_group_id
+	 * @param message
+	 * @return
+	 */
 	public String sendDM(String user_name, String user_group_id, String message) {
 		Connection con = null;
 		String result = "failure";
@@ -656,4 +695,11 @@ public class DataAccess {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
 }

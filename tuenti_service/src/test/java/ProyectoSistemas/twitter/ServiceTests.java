@@ -6,16 +6,18 @@ import org.junit.runners.Suite.SuiteClasses;
 import ProyectoSistemas.twitter.routesTest.TestCheckAnswer;
 import ProyectoSistemas.twitter.routesTest.TestCheckLogIn;
 import ProyectoSistemas.twitter.routesTest.TestCheckUserName;
+import ProyectoSistemas.twitter.routesTest.TestDmRefresh;
 import ProyectoSistemas.twitter.routesTest.TestEditProfileShowedData;
-import ProyectoSistemas.twitter.routesTest.TestGetUserInfoRoute;
+import ProyectoSistemas.twitter.routesTest.TestGetUserGroup;
+import ProyectoSistemas.twitter.routesTest.TestGetUserInfo;
 import ProyectoSistemas.twitter.routesTest.TestInputsRefresh;
 import ProyectoSistemas.twitter.routesTest.TestProfileShowData;
 import ProyectoSistemas.twitter.routesTest.TestRegisterNewUser;
 import ProyectoSistemas.twitter.routesTest.TestRegisteredUserList;
-import ProyectoSistemas.twitter.routesTest.TestSendInputRoute;
+import ProyectoSistemas.twitter.routesTest.TestSendInput;
 import ProyectoSistemas.twitter.routesTest.TestShowDataToEdit;
-import ProyectoSistemas.twitter.routesTest.TestShowPasswordRoute;
-import ProyectoSistemas.twitter.routesTest.TestShowQuestionRoute;
+import ProyectoSistemas.twitter.routesTest.TestShowPassword;
+import ProyectoSistemas.twitter.routesTest.TestShowQuestion;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -33,19 +35,25 @@ import ProyectoSistemas.twitter.routesTest.TestShowQuestionRoute;
 	//6
 	TestInputsRefresh.class,
 	//7
-	TestSendInputRoute.class,
+	TestSendInput.class,
 	//8
 	TestEditProfileShowedData.class,
 	//9
 	TestCheckUserName.class,
 	//10
-	TestShowQuestionRoute.class,
+	TestShowQuestion.class,
 	//11
-	TestShowPasswordRoute.class,
+	TestShowPassword.class,
 	//12
 	TestShowDataToEdit.class, 
 	//13
-	TestGetUserInfoRoute.class
+	TestGetUserInfo.class,
+	//14
+	TestGetUserGroup.class,
+	//14b
+	
+	//15
+	TestDmRefresh.class
 	
 	})
 

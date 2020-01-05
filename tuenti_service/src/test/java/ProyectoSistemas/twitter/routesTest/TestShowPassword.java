@@ -2,6 +2,7 @@ package ProyectoSistemas.twitter.routesTest;
 
 import java.io.IOException;
 import java.net.URI;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -11,20 +12,21 @@ import org.apache.http.util.EntityUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestShowQuestionRoute {
+
+public class TestShowPassword {
 
 	@Test
 	public void test() throws IOException {
 		
 		String user = "pablogp5";
-		String expectedQuestion = "¿ Como se llama tu padre ?";
-		String actualQuestion = "";
+		String expectedPassword = "tortajada5";
+		String actualPassword = "";
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
 		try {
 
-			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/show_question_route?user=" + user));
+			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/show_password_route?user=" + user));
 
 			CloseableHttpResponse response = httpClient.execute(request);
 
@@ -34,7 +36,7 @@ public class TestShowQuestionRoute {
 					HttpEntity entity = response.getEntity();
 					if (entity != null) {
 						// return it as a String
-						actualQuestion = EntityUtils.toString(entity);
+						actualPassword = EntityUtils.toString(entity);
 					}
 				}
 			} 
@@ -47,6 +49,6 @@ public class TestShowQuestionRoute {
 		}
 
 
-		Assert.assertEquals("question not expected ", expectedQuestion, actualQuestion);
+		Assert.assertEquals("question not expected ", expectedPassword, actualPassword);
 	}
 }

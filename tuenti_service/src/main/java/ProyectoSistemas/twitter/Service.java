@@ -67,8 +67,10 @@ public class Service {
         //14 
         get("/get_user_group", new GetUserGroupRoute());
         
+        //15
         get("/get_dms", new DmRefreshRoute());
         
+        //16
         get("/send_dm", new SendDmRoute());
     }
 }

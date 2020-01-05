@@ -2,9 +2,7 @@ package ProyectoSistemas.twitter.routesTest;
 
 import java.io.IOException;
 import java.net.URI;
-
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -13,18 +11,20 @@ import org.apache.http.util.EntityUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestGetUserGroupRoute {
-	
+public class TestShowQuestion {
+
 	@Test
-	public void test() throws ClientProtocolException, IOException {
+	public void test() throws IOException {
+		
+		String user = "pablogp5";
+		String expectedQuestion = "¿ Como se llama tu padre ?";
+		String actualQuestion = "";
+
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		String testUser1 = "pablogp5";
-		String testUser2 = "gonzalo20";
-		int user_group = 0;
-			
+
 		try {
-			String params = "user1=" + testUser1 + "&user2=" + testUser2;
-			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/get_user_group?")+ params);
+
+			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/show_question_route?user=" + user));
 
 			CloseableHttpResponse response = httpClient.execute(request);
 
@@ -34,13 +34,7 @@ public class TestGetUserGroupRoute {
 					HttpEntity entity = response.getEntity();
 					if (entity != null) {
 						// return it as a String
-						String result = EntityUtils.toString(entity);
-						try {
-							user_group = Integer.parseInt(result);
-						}
-						catch (NumberFormatException e) {
-							user_group = 0;
-						}
+						actualQuestion = EntityUtils.toString(entity);
 					}
 				}
 			} 
@@ -51,9 +45,8 @@ public class TestGetUserGroupRoute {
 		finally {
 			httpClient.close();
 		}
-		
-		System.out.println("User group = " + user_group);
-		Assert.assertTrue(user_group > 0);
+
+
+		Assert.assertEquals("question not expected ", expectedQuestion, actualQuestion);
 	}
-	
-}	
+}

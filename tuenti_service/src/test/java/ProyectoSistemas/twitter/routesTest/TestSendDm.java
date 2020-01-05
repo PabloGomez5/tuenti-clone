@@ -13,30 +13,37 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-public class TestShowPasswordRoute {
-
+public class TestSendDm {
 	@Test
 	public void test() throws IOException {
-		
+
 		String user = "pablogp5";
-		String expectedPassword = "tortajada5";
-		String actualPassword = "";
-
+		String userGroupId = "1";
+		String message = "hi im just testing the testSendDm";
+		
+		String success ="false";
+		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
+		
 		try {
 
-			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/show_password_route?user=" + user));
+			String params = "user=" + user + "&user_group_id=" + userGroupId + "&message="+ message;
+			
+			
+			String urlString = "http://127.0.0.1:4567/send_dm?" + params;
+			
+			
+			HttpGet request = new HttpGet(URI.create(urlString));
 
 			CloseableHttpResponse response = httpClient.execute(request);
-
+			
 			try {
 				if (response.getStatusLine().getStatusCode() == 200) {
 
 					HttpEntity entity = response.getEntity();
 					if (entity != null) {
 						// return it as a String
-						actualPassword = EntityUtils.toString(entity);
+						success = EntityUtils.toString(entity);
 					}
 				}
 			} 
@@ -47,8 +54,8 @@ public class TestShowPasswordRoute {
 		finally {
 			httpClient.close();
 		}
-
-
-		Assert.assertEquals("question not expected ", expectedPassword, actualPassword);
+		
+		Assert.assertEquals("The msg send didnt worked , try again", success, "success");
+		
 	}
 }

@@ -2,8 +2,7 @@ package ProyectoSistemas.twitter.routesTest;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,25 +13,18 @@ import org.apache.http.util.EntityUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class TestInputsRefresh {
+public class TestGetUserGroup {
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void test() throws ClientProtocolException, IOException {
-		
-		List<String> expectedUsers = new ArrayList<String>();
-		expectedUsers.add("pablogp5 : hola aqui programando mi project");
-		
-		
-		List<String> actualUsers = null;
-		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
+		String testUser1 = "gonzalo20";
+		String testUser2 = "warren8";
+		int user_group = 0;
+			
 		try {
-
-			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/inputs_refresh_route"));
+			String params = "user1=" + testUser1 + "&user2=" + testUser2;
+			HttpGet request = new HttpGet(URI.create("http://127.0.0.1:4567/get_user_group?")+ params);
 
 			CloseableHttpResponse response = httpClient.execute(request);
 
@@ -42,8 +34,13 @@ public class TestInputsRefresh {
 					HttpEntity entity = response.getEntity();
 					if (entity != null) {
 						// return it as a String
-						String jsonsUsers = EntityUtils.toString(entity);
-						actualUsers = new ObjectMapper().readValue(jsonsUsers, List.class);
+						String result = EntityUtils.toString(entity);
+						try {
+							user_group = Integer.parseInt(result);
+						}
+						catch (NumberFormatException e) {
+							user_group = 0;
+						}
 					}
 				}
 			} 
@@ -55,9 +52,7 @@ public class TestInputsRefresh {
 			httpClient.close();
 		}
 		
-	 	Assert.assertEquals("User list did not match", expectedUsers, actualUsers);
+		Assert.assertTrue(user_group == 12);
 	}
 	
-
-
-}
+}	
