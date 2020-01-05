@@ -1,6 +1,7 @@
 package ProyectoSistemas.twitter;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 import ProyectoSistemas.twitter.routes.CheckAnswerRoute;
 import ProyectoSistemas.twitter.routes.CheckLogInRoute;
@@ -15,6 +16,9 @@ import ProyectoSistemas.twitter.routes.ShowQuestionRoute;
 import ProyectoSistemas.twitter.routes.CheckUserNameRoute;
 import ProyectoSistemas.twitter.routes.EditProfileShowedDataRoute;
 import ProyectoSistemas.twitter.routes.GetUserInfoRoute;
+import ProyectoSistemas.twitter.routes.GetUserGroupRoute;
+import ProyectoSistemas.twitter.routes.DmRefreshRoute;
+import ProyectoSistemas.twitter.routes.SendDmRoute;
 
 public class Service {
     public static void main(String[] args) {
@@ -28,7 +32,7 @@ public class Service {
         get("/check_answer_route", new CheckAnswerRoute());
         
         //3
-        spark.Spark.post("/register_new_user_route", new RegisterNewUserRoute());
+        post("/register_new_user_route", new RegisterNewUserRoute());
         
         //4
         get("/registered_user_list_route", new RegisteredUserListRoute());
@@ -43,7 +47,7 @@ public class Service {
         get("/send_input_route", new SendInputRoute());
         
         //8
-        spark.Spark.post("/edit_prifile_showed_data", new EditProfileShowedDataRoute());
+        post("/edit_profile_showed_data", new EditProfileShowedDataRoute());
         
     	//9
         get("/check_user_exists_route", new CheckUserNameRoute());
@@ -60,5 +64,11 @@ public class Service {
         //13
         get("/get_user_info_route", new GetUserInfoRoute());
         
+        //14 
+        get("/get_user_group", new GetUserGroupRoute());
+        
+        get("/get_dms", new DmRefreshRoute());
+        
+        get("/send_dm", new SendDmRoute());
     }
 }

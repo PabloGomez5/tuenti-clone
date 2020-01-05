@@ -23,7 +23,7 @@ public class TestEditProfileShowedData {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("http://127.0.0.1:4567/edit_prifile_showed_data");
+		HttpPost httpPost = new HttpPost("http://127.0.0.1:4567/edit_profile_showed_data");
 		httpPost.setHeader("Accept", "application/json");
 		httpPost.setHeader("Content-type", "application/json");
 		

@@ -53,12 +53,12 @@ public class RegisterNewUserRoute implements Route  {
         
         // Insert all eight values into the database
         DataAccess da = new DataAccess();
-        da.registerNewUser(name,surname_first,surname_second,user_name,password,email,id_questionI ,answer);
+        String success = da.registerNewUser(name,surname_first,surname_second,user_name,password,email,id_questionI ,answer);
         
         
         // If anything blows up, return "failure".
         // Otherwise:
 
-		return "success";
+		return success;
     }
 }
